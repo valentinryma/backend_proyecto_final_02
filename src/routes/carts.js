@@ -18,7 +18,30 @@ router.get('/', async (req, res) => {
     }
 });
 
-// TODO: TERMINAR ADD PRODUCT TO CART.
+router.get('/:id', async (req, res) => {
+    const cartManager = getManager(req);
+
+    try {
+        const cart = await cartManager.getCartById(req.params.id);
+        res.json(cart);
+    } catch (error) {
+        console.error(error);
+        return res.status(400).json({ success: false, error: error.message });
+    }
+})
+
+router.post('/', async (req, res) => {
+    const cartManager = getManager(req);
+
+    try {
+        const cart = await cartManager.addCart();
+        res.json(cart);
+    } catch (error) {
+        console.error(error)
+        return res.status(400).json({ success: false });
+    }
+})
+
 router.post('/:cid/product/:pid', async (req, res) => {
     const cartManager = getManager(req);
 
@@ -28,7 +51,21 @@ router.post('/:cid/product/:pid', async (req, res) => {
 
     try {
         const cart = await cartManager.addProductCart(cid, { pid, quantity });
-        res.json({ success: true, cart });
+        if (cart.error) {
+            res.status(404);
+        }
+
+        res.json(cart);
+    } catch (error) {
+        return res.status(400).json({ success: false, error: error.message });
+    }
+})
+
+router.delete('/:id', async (req, res) => {
+    const cartManager = getManager(req);
+    try {
+        await cartManager.deleteById(req.params.id);
+        res.json({ success: true });
     } catch (error) {
         return res.status(400).json({ success: false, error: error.message });
     }

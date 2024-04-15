@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const collection = 'products';
 
@@ -17,4 +18,5 @@ schema.virtual('id').get(function () {
     return this._id.toString();
 });
 
+schema.plugin(mongoosePaginate); // await ProductModel.paginate({query}, {config (limit, page, lean, etc.)})
 module.exports = mongoose.model('Product', schema, collection)
