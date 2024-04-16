@@ -1,31 +1,11 @@
 const Router = require('express');
 const router = Router();
 
-router.get('/', (_, res) => {
-    res.render('index', {
-        title: 'Pagina Principal',
-        srcripts: [],
-        styles: []
-    })
-})
-
-// TODO View ver todos los productos
-router.get('/products', (_, res) => {
+router.get('/products', (req, res) => {
     res.render('products', {
-        title: 'Productos',
-        srcripts: [],
+        title: 'Pagina Principal',
+        srcripts: ['index.js'],
         styles: ['products.css']
-    })
-})
-
-// TODO View carrito unico - Listar SOLO los productos.
-router.get('/carts/:cid', (req, res) => {
-    const cid = req.params.cid;
-
-    res.render('cart', {
-        title: 'Carrito',
-        srcripts: [],
-        styles: []
     })
 })
 

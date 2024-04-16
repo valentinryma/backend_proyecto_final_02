@@ -2,7 +2,20 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
 const mongoose = require('mongoose')
-const app = express();
+
+// Handlebars Config.
+const app = express()
+
+// Public
+app.use(express.static(`${__dirname}/../public`));
+
+app.engine('handlebars', handlebars.engine())
+app.set('views', `${__dirname}/views`)
+app.set('view engine', 'handlebars')
+
+// Express Config.
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 const viewsRouter = require(`${__dirname}/routes/views.js`);
@@ -12,18 +25,6 @@ const cartsRouter = require(`${__dirname}/routes/carts.js`);
 // Managers
 const ProductManager = require(`${__dirname}/dao/controllers/productManager.js`)
 const CartManager = require(`${__dirname}/dao/controllers/cartManager.js`)
-
-// Public
-app.use(express.static(`${__dirname}/../public`));
-
-// Express Config.
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Handlebars Config.
-app.engine('handlebars', handlebars.engine())
-app.set('views', `${__dirname}/views`)
-app.set('view engine', 'handlebars')
 
 // Endpoints
 app.use('/', viewsRouter);
@@ -50,10 +51,11 @@ const main = async () => {
 
     // HTTP Server on.
     const PORT = process.env.PORT || 8080;
-    const serverHTTP = app.listen(PORT, () => {
+    app.listen(PORT, () => {
         console.log(`Sever on http://localhost:${PORT}/`);
-    })
-
+    });
 };
 
 main();
+
+
