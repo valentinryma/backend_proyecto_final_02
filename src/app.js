@@ -21,9 +21,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Handlebars Config.
-app.engine('handlebars', handlebars.engine());
-app.set('views', `${__dirname}/views`);
-app.set('view engine', 'handlebars');
+app.engine('handlebars', handlebars.engine())
+app.set('views', `${__dirname}/views`)
+app.set('view engine', 'handlebars')
 
 // Endpoints
 app.use('/', viewsRouter);

@@ -12,12 +12,19 @@ class ProductManager {
     }
 
     async getProducts(filters = null) {
-        // Filtro
+        // Query Filters
         const title = filters && filters.title;
+        const status = filters && filters.status;
         const category = filters && filters.category;
+
+        // Query Paginate - Options
+        const limit = (filters && filters.limit) || 10;
+        const page = (filters && filters.page) || 1;
+        let sort = (filters && filters.sort);
 
         const conditions = []
 
+        // Query Filters 
         if (title) {
             conditions.push({
                 title: {
@@ -29,13 +36,44 @@ class ProductManager {
 
         if (category) {
             conditions.push({ category })
-        } // -> Filtro
+        }
 
-        const products = conditions.length
-            ? await ProductModel.find({ $and: conditions })
-            : await ProductModel.find();
+        if (status) {
+            conditions.push({ status })
+        }
 
-        return products.map(c => c.toObject({ virtuals: true }));
+        // Query final & Query Options
+        const query = {
+            $and: conditions
+        }
+
+        const options = {
+            limit,
+            page,
+            lean: true
+        }
+
+        // Si tiene sort, lo agrega a las opciones, sino no aplica ningun ordenamiento.
+        if (sort) {
+            options.sort = { price: +sort }
+        }
+
+        let results = conditions.length
+            ? await ProductModel.paginate(query, options)
+            : await ProductModel.paginate({}, options);
+
+        if (results.hasPrevPage) {
+            results.prevPage = `/api/products?page=${results.prevPage}`;
+        }
+        if (results.hasNextPage) {
+            results.nextPage = `/api/products?page=${results.nextPage}`;
+        }
+
+        // Reemplazamos "docs" con "payload"
+        results.payload = results.docs;
+        delete results.docs;
+
+        return results;
     }
 
     async getProductById(id) {

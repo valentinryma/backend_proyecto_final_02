@@ -8,10 +8,12 @@ const getManager = (req) => {
 
 router.get('/', async (req, res) => {
     const productManager = getManager(req);
+    const query = req.query;
 
     try {
-        const products = await productManager.getProducts(req.query);
-        res.json(products);
+        const results = await productManager.getProducts(query);
+        results.status = 'success'; // Agrega el status success si todo salio bien. || No entendi en que momento se pondria el status=error 
+        res.json(results);
     } catch (error) {
         console.error(error);
         res.status(400).json({ success: false });

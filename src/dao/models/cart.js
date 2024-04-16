@@ -7,13 +7,15 @@ const schema = new mongoose.Schema({
     products: [{
         _id: {
             type: mongoose.Schema.Types.ObjectId,
-            require: true
+            require: true,
+            ref: 'Product'
+
         },
 
         quantity: {
             type: Number,
             require: true
-        }
+        },
     }],
 })
 
