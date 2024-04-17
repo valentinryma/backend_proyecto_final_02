@@ -1,19 +1,19 @@
 <div class="cart-container">
     <h1>Cart Buy</h1>
-    <div class="cart-items">
-        {{#each products}}
-        <div class="cart-item">
-            <div class="item-details">
-                <h3>{{_id.title}}</h3>
-                <p>Precio: ${{_id.price}}</p>
-                <p>Quantity: {{quantity}}</p>
-                <a href="../api/products/{{_id._id}}">View product</a>
-                <br>
-                <button id="{{_id._id}}">Remove ❌</button>
-            </div>
+    <p hidden id="cid">{{cartId}}</p>
+    {{#each products}}
+    <div class="cart-item" id="cart-item-{{_id._id}}">
+        <div class="item-details">
+            <h3>{{_id.title}}</h3>
+            <p>Precio: ${{_id.price}}</p>
+            <p>Quantity: {{quantity}}</p>
+            <a href="../api/products/{{_id._id}}">View product</a>
+            <br>
+            <button class="btn-remove" id="{{_id._id}}">Remove ❌</button>
         </div>
-        {{/each}}
     </div>
+    {{/each}}
+    </p>
     <div class="cart-summary">
         <h2>cart summary</h2>
         <p>Total:${{total}}</p>

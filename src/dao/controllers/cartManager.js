@@ -93,7 +93,7 @@ class CartManager {
 
             // Verifica si el producto ya existe dentro del carrito.
             const found = cartFound.products.find((product) => {
-                return (product._id).toString() === pid;
+                return (product._id._id.toString()) === pid;
             });
 
             if (!found) {

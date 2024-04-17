@@ -8,7 +8,7 @@ router.get('/products', async (req, res) => {
 
     res.render('products', {
         title: 'Pagina Principal',
-        srcripts: ['index.js'],
+        scripts: ['products.js'],
         styles: ['products.css'],
         products: products
     })
@@ -17,7 +17,6 @@ router.get('/products', async (req, res) => {
 router.get('/carts/:id', async (req, res) => {
     const cartManager = req.app.get('cartManager');
     const cart = await cartManager.getCartById(req.params.id);
-
     const calcTotal = (cart) => {
         let total = 0;
         for (const product of cart) {
@@ -29,10 +28,11 @@ router.get('/carts/:id', async (req, res) => {
     const total = calcTotal(cart.products);
     res.render('cartId', {
         title: 'Cart Buy',
-        srcripts: ['index.js'],
+        scripts: ['carts.js'],
         styles: ['carts.css'],
         products: cart.products,
-        total
+        total,
+        cartId: req.params.id
     })
 })
 

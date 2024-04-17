@@ -1,1 +1,0 @@
-// TODO: Programar funcionalidad del boton comprar, envie ID para que se sume al carrito.
