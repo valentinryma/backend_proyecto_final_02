@@ -11,6 +11,7 @@ Servidor: Node / Express
 Paginación: Mongoose Paginate V2.
 
 **Endpoints:**
+
 *Views:*
 * http://localhost:8080/products: Vista con todos los productos (Paginate)
 * http://localhost:8080/carts/:cid: Vista para un carrito especifico (Lista los productos y cantidades.)
