@@ -19,7 +19,7 @@ class CartManager {
 
     async getCartById(id) {
         try {
-            const cartFound = await CartModel.findOne({ _id: id }).populate('products._id');
+            const cartFound = await CartModel.findOne({ _id: id }).lean().populate('products._id');
             if (cartFound == null) {
                 throw new Error('Cart not found');
             }

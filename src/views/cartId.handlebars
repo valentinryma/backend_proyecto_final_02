@@ -1,1 +1,22 @@
-<div></div>
+<div class="cart-container">
+    <h1>Cart Buy</h1>
+    <div class="cart-items">
+        {{#each products}}
+        <div class="cart-item">
+            <div class="item-details">
+                <h3>{{_id.title}}</h3>
+                <p>Precio: ${{_id.price}}</p>
+                <p>Quantity: {{quantity}}</p>
+                <a href="../api/products/{{_id._id}}">View product</a>
+                <br>
+                <button id="{{_id._id}}">Remove ❌</button>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    <div class="cart-summary">
+        <h2>cart summary</h2>
+        <p>Total:${{total}}</p>
+        <button class="checkout-button">Checkout</button>
+    </div>
+</div>
