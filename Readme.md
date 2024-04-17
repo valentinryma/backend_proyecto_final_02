@@ -3,18 +3,6 @@
 ********
 **Objetivo:** CRUD de productos y carrito. 
 
-**Tecnologías:** 
-
-DB: MongoDB
-
-ORM: Mongoose
-
-Motor de plantillas: Handlebars
-
-Servidor: Node / Express
-
-Paginación: Mongoose Paginate V2.
-
 **Comandos:**
 - `npm start`: Start server.
 
@@ -44,6 +32,14 @@ Paginación: Mongoose Paginate V2.
 * PUT:
 	* http://localhost:8080/api/carts/:cid: Actualiza el Array de productos de un carrito existente. (Lo pisa.)
 	* http://localhost:8080/api/carts/:cid/carts/:pid: Actualiza el Quantity de un producto de un carrito. (Pasa quantity por body)
+
+**Tecnologías:** 
+
+* DB: MongoDB
+* ORM: Mongoose
+* Motor de plantillas: Handlebars
+* Servidor: Node / Express
+* Paginación: Mongoose Paginate V2.
 
 **TO-DO:**
 - [ ] Embellecer vistas
