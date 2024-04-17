@@ -15,6 +15,8 @@ Servidor: Node / Express
 
 Paginación: Mongoose Paginate V2.
 
+**Comandos:**
+- `npm start`: Start server.
 
 **Endpoints:**
 
