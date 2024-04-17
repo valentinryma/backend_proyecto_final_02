@@ -4,6 +4,7 @@
 **Objetivo:** CRUD de productos y carrito. 
 
 **Tecnologías:** 
+
 DB: MongoDB
 
 ORM: Mongoose
