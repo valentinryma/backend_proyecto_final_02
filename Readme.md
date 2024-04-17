@@ -2,16 +2,19 @@
 # Entrega del proyecto final: #2
 ********
 **Objetivo:** CRUD de productos y carrito. 
+
 **Tecnologías:** 
-* DB: MongoDB
-* ORM: Mongoose
-* Motor de plantillas: Handlebars
-* Servidor: Node / Express
-* Paginación: Mongoose Paginate V2.
+DB: MongoDB
+ORM: Mongoose
+Motor de plantillas: Handlebars
+Servidor: Node / Express
+Paginación: Mongoose Paginate V2.
+
 **Endpoints:**
 *Views:*
 * http://localhost:8080/products: Vista con todos los productos (Paginate)
 * http://localhost:8080/carts/:cid: Vista para un carrito especifico (Lista los productos y cantidades.)
+
 *API:*
 * GET:
 	* http://localhost:8080/api/products: JSON con los todos los productos.
@@ -33,8 +36,6 @@
 	* http://localhost:8080/api/carts/:cid: Actualiza el Array de productos de un carrito existente. (Lo pisa.)
 	* http://localhost:8080/api/carts/:cid/carts/:pid: Actualiza el Quantity de un producto de un carrito. (Pasa quantity por body)
 
-
-**TODO**
-- /products: Funcionalidad agregar a un carrito
-- Embellecer vistas
-
+**TO-DO:**
+- [ ] Embellecer vistas
+- [ ] /products: Funcionalidad agregar a un carrito
