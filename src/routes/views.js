@@ -4,13 +4,13 @@ const router = Router();
 
 router.get('/products', async (req, res) => {
     const productManager = req.app.get('productManager');
-    const products = await productManager.getProducts();
+    const results = await productManager.getProducts(req.query);
 
     res.render('products', {
         title: 'Pagina Principal',
         scripts: ['products.js'],
         styles: ['products.css'],
-        products: products
+        results
     })
 })
 

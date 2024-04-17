@@ -1,5 +1,5 @@
 <div class="product-container">
-    {{#each products.payload}}
+    {{#each results.payload}}
     <div class="product">
         <div class="thumbnails">
             {{#each thumbnails}}
@@ -24,4 +24,15 @@
         </div>
     </div>
     {{/each}}
+
+    <div class="pagination">
+        Current page: {{results.page}}
+        {{#if results.hasPrevPage}}
+        <a href="/products?page={{results.prevPage}}&limit={{results.limit}}">Prev</a>
+        {{/if}}
+
+        {{#if results.hasNextPage}}
+        <a href="/products?page={{results.nextPage}}&limit={{results.limit}}">Next</a>
+        {{/if}}
+    </div>
 </div>

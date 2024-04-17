@@ -62,12 +62,12 @@ class ProductManager {
             ? await ProductModel.paginate(query, options)
             : await ProductModel.paginate({}, options);
 
-        if (results.hasPrevPage) {
-            results.prevPage = `/api/products?page=${results.prevPage}`;
-        }
-        if (results.hasNextPage) {
-            results.nextPage = `/api/products?page=${results.nextPage}`;
-        }
+        // if (results.hasPrevPage) {
+        //     results.prevPage = `/api/products?page=${results.prevPage}`;
+        // }
+        // if (results.hasNextPage) {
+        //     results.nextPage = `/api/products?page=${results.nextPage}`;
+        // }
 
         // Reemplazamos "docs" con "payload"
         results.payload = results.docs;
