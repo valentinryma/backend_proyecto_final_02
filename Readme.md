@@ -5,10 +5,15 @@
 
 **Tecnologías:** 
 DB: MongoDB
+
 ORM: Mongoose
+
 Motor de plantillas: Handlebars
+
 Servidor: Node / Express
+
 Paginación: Mongoose Paginate V2.
+
 
 **Endpoints:**
 
