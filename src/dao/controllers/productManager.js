@@ -1,5 +1,5 @@
 // Modelo: Product
-const ProductModel = require(`${__dirname}/../models/product.js`)
+const ProductModel = require(`${__dirname}/../models/product.model.js`)
 
 // Clase CartManager
 class ProductManager {

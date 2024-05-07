@@ -1,5 +1,3 @@
-// TODO: Programar funcionalidad del boton eliminar, envie ID para que se elimine del carrito.
-
 const removeBtn = document.querySelectorAll('.btn-remove');
 const cid = document.getElementById('cid').innerText;
 let pid = '';

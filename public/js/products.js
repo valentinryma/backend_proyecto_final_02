@@ -2,7 +2,19 @@
 const buyBtn = document.querySelectorAll('.btn-buy');
 for (const btn of buyBtn) {
     btn.addEventListener("click", function () {
-        const product_id = this.id;
-        console.log('Producto:', product_id, 'Agregado al carrito: {carrito id}')
+        const btnid = this.id;
+        const productId = btnid.split('.')[0];
+        const cartId = btnid.split('.')[1];
+        addProductCart(cartId, productId);
     });
+}
+
+function addProductCart(cid, pid) {
+    $.ajax(`/api/carts/${cid}/product/${pid}`, {
+        dataType: 'json',
+        method: 'POST',
+        success: function () {
+            console.log('Product add in cart')
+        }
+    })
 }

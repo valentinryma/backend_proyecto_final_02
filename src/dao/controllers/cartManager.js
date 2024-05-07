@@ -1,6 +1,6 @@
 // Modelos 
-const CartModel = require(`${__dirname}/../models/cart.js`)
-const ProductModel = require(`${__dirname}/../models/product.js`)
+const CartModel = require(`${__dirname}/../models/cart.model.js`)
+const ProductModel = require(`${__dirname}/../models/product.model.js`)
 
 // Clase CartManager
 class CartManager {
@@ -43,6 +43,7 @@ class CartManager {
 
     async addProductCart(cid, product) {
         const pid = product.pid;
+        product.quantity = product.quantity || 1;
         try {
             const cartFound = await this.getCartById(cid);
             if (cartFound.error) {
@@ -55,8 +56,8 @@ class CartManager {
             }
 
             // Verifica si el producto ya existe dentro del carrito.
-            const found = cartFound.products.find((product) => {
-                return (product._id).toString() === pid;
+            let found = cartFound.products.find((product) => {
+                return (product._id._id.toString()) === pid;
             });
 
             // Sumar la cantidad si el producto ya existe en el carrito

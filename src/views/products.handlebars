@@ -1,11 +1,7 @@
 <div class="product-container">
+
     {{#each results.payload}}
     <div class="product">
-        <div class="thumbnails">
-            {{#each thumbnails}}
-            <img src="{{this}}" alt="Thumbnail 1">
-            {{/each}}
-        </div>
         <div class="product-details">
             <h2 class="product-title">{{title}}</h2>
             <p class="product-code">Code: {{code}}</p>
@@ -15,7 +11,14 @@
 
             {{#if status}}
             <p class="product-status">Status: Available ✔</p>
-            <button class="btn-buy" id="{{_id}}">BUY</button>
+
+            <div class="thumbnails">
+                {{#each thumbnails}}
+                <img src="{{this}}" alt="Thumbnail 1">
+                {{/each}}
+            </div>
+
+            <button class="btn-buy" id="{{_id}}.{{../cartId}}">BUY</button>
             {{!-- Quantity --}}
             {{else}}
             <p class="product-status">Status: Not available ❌</p>
@@ -23,6 +26,7 @@
             {{/if}}
         </div>
     </div>
+    <br>
     {{/each}}
 
     <div class="pagination">
