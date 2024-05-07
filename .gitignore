@@ -1,3 +1,4 @@
 node_modules
 package-lock.json
-/src/config/github.private.js
+# /src/config/github.private.js
+# /src/session/defaultOptions.js
