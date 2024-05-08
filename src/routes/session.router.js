@@ -5,40 +5,39 @@ const { PUBLIC, USER, ADMIN } = require(`${__dirname}/policies.constants.js`);
 
 // JWT
 // const { authenticateMddl, authorizateMddl } = require('./utils/passportMiddleware');
-const { JWT_SECRET, generateToken } = require(`${__dirname}/../utils/jwt.js`);
+const { generateToken } = require(`${__dirname}/../utils/jwt.js`);
 
 class SessionRouter extends Router {
     init() {
         // --------> Extract Cookie
-        this.get('/current', [PUBLIC], (req, res) => {
-            // TODO: Extraer Cookie passport jwt y cookie extractor
-            res.json(req.user);
+        this.get('/current', [PUBLIC], passport.authenticate('jwt', { session: false }), (req, res) => {
+            res.sendSuccess({ user: req.user });
         })
 
         // --------> LOCAL 
         this.post('/register', [PUBLIC], passport.authenticate('register', { failureRedirect: './failregister' }),
             async (req, res) => {
-                res.redirect('/');
+                res.sendSuccess({ redirect: '/' });
             })
 
         this.get('/failregister', [PUBLIC], (_, res) => {
-            res.send('Register fail');
+            res.sendError(400, 'Register fail');
         })
 
         this.post('/login', [PUBLIC], passport.authenticate('login', { failureRedirect: '/api/sessions/faillogin' }),
             async (req, res) => {
-
                 const user = req.user;
-                const credentials = { id: user._id.toString(), email: user.email, role: user.role } // => jwt_payload
+
+                // Generamos un TOKEN JWT con {id, email, role}
+                const credentials = { id: user._id.toString(), email: user.email, role: user.role } // jwt_payload
                 const accessToken = generateToken(credentials)
                 res.cookie('accessToken', accessToken, { maxAge: 60 * 1000, httpOnly: true });
 
-                // res.redirect('/');
-                res.redirect('/');
+                res.sendSuccess({ accessToken, redirect: 'http://localhost:8080/api/sessions/current' });
             })
 
         this.get('/faillogin', [PUBLIC], (_, res) => {
-            res.send('Login fail');
+            res.sendError(400, 'Login fail');
         })
 
         // --------> GITHUB

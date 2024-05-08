@@ -3,6 +3,7 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const cookieParser = require('cookie-parser');
 
 // Handlebars Config.
 const app = express()
@@ -49,6 +50,9 @@ app.use(express.static(`${__dirname}/../public`));
 
 // Mongo Session 
 app.use(sessionMiddleware);
+
+// Cookies
+app.use(cookieParser());
 
 // Passport - Strategys
 initializeStrategyGitHub();

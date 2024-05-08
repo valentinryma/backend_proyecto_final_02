@@ -38,36 +38,9 @@ class BaseRouter {
             const authRole = req.user?.role
             if (authRole) {
                 if (policies.includes(req.user.role)) {
-                    console.log('Authenticated by ROL')
                     return next();
                 }
             }
-
-            // Verificar desde Header Authorization
-            const authHeader = req.headers.authorization
-
-            if (!authHeader) {
-                return res.status(401).send({ status: 'error', message: 'Unauthorized!' });
-            }
-
-            // Verificar si el token es valido
-            const [, token,] = authHeader.split(' ');
-            jwt.verify(token, JWT_SECRET, (err, payload) => {
-                if (err) {
-                    return res.status(403).send({ status: 'error', message: 'Invalid token' })
-                }
-
-                // Verificar si tienen los permisos correspondientes
-                const userRole = payload.role;
-                if (!policies.includes(userRole)) {
-                    return res.status(403).send({ status: 'error', message: 'Invalid permissions' })
-                }
-
-                req.user = payload;
-
-                console.log('Authenticated by JWT')
-                return next();
-            })
         }
     }
 
@@ -86,8 +59,8 @@ class BaseRouter {
 
     // Respuestas estandar (res.*response*)
     genCustomResponses = (_, res, next) => {
-        res.sendSuccess = payload => res.send({ status: 'success', payload });
-        res.sendError = error => res.status(500).send({ status: 'error', error });
+        res.sendSuccess = payload => res.json({ status: 'success', payload });
+        res.sendError = (code, error) => res.status(code).json({ status: 'error', error });
         next();
     }
 }
