@@ -3,22 +3,38 @@ const User = require(`${__dirname}/../dao/models/user.model.js`);
 const { PUBLIC, USER } = require(`${__dirname}/policies.constants.js`);
 class ViewsRouter extends Router {
     init() {
-        this.get('/', [PUBLIC], (req, res) => {
-            let isLoggedIn = false;
+        this.get('/', [PUBLIC], async (req, res) => {
+            const productManager = req.app.get('productManager');
+            const cartManager = req.app.get('cartManager');
+            const results = await productManager.getProducts(req.query);
 
             // Verifica si el user esta logueado.
-            if (req.user) isLoggedIn = true;
+            let isLoggedIn = false;
+            let cartId = 'null'
+
+            if (req.user) {
+                isLoggedIn = true;
+                cartId = req.user?.cart.toString();
+            }
+
+            const total = await cartManager.getTotalProducts(cartId);
 
             res.render('index', {
-                title: 'Home',
+                title: 'Pagina Principal',
+                scripts: ['products.js'],
+                styles: ['styles.css'],
+                results,
                 isLoggedIn,
                 isNotLoggedIn: !isLoggedIn,
+                total,
+                cartId
             })
         })
 
         this.get('/login', [PUBLIC], (req, res) => {
-            res.render('login', {
-                title: 'Login'
+            res.render('log-in', {
+                title: 'Login',
+                styles: ['styles.css', 'log-in.css']
             })
         })
 
@@ -40,18 +56,6 @@ class ViewsRouter extends Router {
                     age: user.age,
                     email: user.email
                 }
-            })
-        })
-
-        this.get('/products', [PUBLIC], async (req, res) => {
-            const productManager = req.app.get('productManager');
-            const results = await productManager.getProducts(req.query);
-            res.render('products', {
-                title: 'Pagina Principal',
-                scripts: ['products.js'],
-                styles: ['products.css'],
-                results,
-                cartId: req.user.cart.toString()
             })
         })
 

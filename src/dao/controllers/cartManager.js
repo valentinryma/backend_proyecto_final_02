@@ -1,7 +1,7 @@
 // Modelos 
 const CartModel = require(`${__dirname}/../models/cart.model.js`)
 const ProductModel = require(`${__dirname}/../models/product.model.js`)
-
+const mongoose = require('mongoose')
 // Clase CartManager
 class CartManager {
     constructor() { }
@@ -135,6 +135,23 @@ class CartManager {
             console.error(error);
             return { error: error.message };
         }
+    }
+
+    // Retorna el numero total de productos dentro de un carrito
+    async getTotalProducts(cartId) {
+        if (cartId === 'null') return 0
+        const result = await CartModel.aggregate([
+            {
+                $match: { _id: new mongoose.Types.ObjectId(cartId) }
+            },
+            {
+                $project: {
+                    totalProducts: { $size: "$products" }
+                }
+            }
+        ])
+        const total = +(result[0].totalProducts);
+        return total;
     }
 
     async updateCartProductQuantity(cid, product) {

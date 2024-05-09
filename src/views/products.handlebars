@@ -1,5 +1,18 @@
-<div class="product-container">
+<div>
+    <a href="/">Home</a>
+</div>
+{{#if isNotLoggedIn}}
+<div>
+    <p>Debe iniciar sesion para poder realizar una compra<span> <a href="/login">Iniciar sesion </a></span></p>
+</div>
+{{else}}
+<div>
+    <a href="/carts">Cart</a>
+</div>
+{{/if}}
 
+
+<div class="product-container">
     {{#each results.payload}}
     <div class="product">
         <div class="product-details">
@@ -18,7 +31,12 @@
                 {{/each}}
             </div>
 
+            {{#if ../isLoggedIn}}
             <button class="btn-buy" id="{{_id}}.{{../cartId}}">BUY</button>
+            {{else}}
+            <button class="btn-buy-hide">User not logued</button>
+            {{/if}}
+
             {{!-- Quantity --}}
             {{else}}
             <p class="product-status">Status: Not available ❌</p>

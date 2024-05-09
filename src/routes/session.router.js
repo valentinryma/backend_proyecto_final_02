@@ -1,20 +1,18 @@
 const passport = require('passport');
 const Router = require(`${__dirname}/router.js`);
-
 const { PUBLIC, USER, ADMIN } = require(`${__dirname}/policies.constants.js`);
 
-// JWT
-// const { authenticateMddl, authorizateMddl } = require('./utils/passportMiddleware');
+const { getURL } = require(`${__dirname}/../utils/utils.js`);
 const { generateToken } = require(`${__dirname}/../utils/jwt.js`);
 
 class SessionRouter extends Router {
     init() {
-        // --------> Extract Cookie
+        // --------> JWT
         this.get('/current', [PUBLIC], passport.authenticate('jwt', { session: false }), (req, res) => {
             res.sendSuccess({ user: req.user });
         })
 
-        // --------> LOCAL 
+        // --------> LOCAL: Register - Login 
         this.post('/register', [PUBLIC], passport.authenticate('register', { failureRedirect: './failregister' }),
             async (req, res) => {
                 res.sendSuccess({ redirect: '/' });
@@ -33,7 +31,7 @@ class SessionRouter extends Router {
                 const accessToken = generateToken(credentials)
                 res.cookie('accessToken', accessToken, { maxAge: 60 * 1000, httpOnly: true });
 
-                res.sendSuccess({ accessToken, redirect: 'http://localhost:8080/api/sessions/current' });
+                res.sendSuccess({ accessToken, redirect: `${getURL(req)}/api/sessions/current` });
             })
 
         this.get('/faillogin', [PUBLIC], (_, res) => {
