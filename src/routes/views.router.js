@@ -72,7 +72,6 @@ class ViewsRouter extends Router {
                 }
                 return total.toLocaleString()
             }
-
             const total = calcTotal(cart.products);
             res.render('cartId', {
                 title: 'Cart Buy',
@@ -80,7 +79,7 @@ class ViewsRouter extends Router {
                 styles: ['carts.css'],
                 products: cart.products,
                 total,
-                cartId: id
+                cartId: id,
             })
         })
     }

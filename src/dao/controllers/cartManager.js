@@ -67,6 +67,7 @@ class CartManager {
                 return cartUpdate;
             }
 
+
             // Agregar el producto en el carrito
             const cartUpdate = await CartModel.updateOne({ _id: cid }, {
                 $push: { products: { _id: product.pid, quantity: product.quantity } }
