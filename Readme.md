@@ -1,4 +1,9 @@
 # TODO
 - Configurar TTL -> mongoStorage (Mongo Session)
-- Current
+- Views:
+    - Current 
+    - Register Local
+- Websocket: Cart count icon
+
+
 
